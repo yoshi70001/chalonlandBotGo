@@ -3,14 +3,16 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"strings"
 
 	"github.com/bwmarrin/discordgo"
 )
 
 func main() {
+	token := os.Getenv("BOT_TOKEN")
 	prefix := "."
-	sess, err := discordgo.New("Bot ")
+	sess, err := discordgo.New("Bot " + token)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -19,9 +21,10 @@ func main() {
 			return
 		}
 
-		args := strings.Split(m.Content, " ")
-		if args[0] != prefix {
-
+		argsaux := strings.Split(m.Content, "")
+		// args := strings.Split(m.Content, " ")
+		if argsaux[0] != prefix {
+			return
 		}
 	})
 
