@@ -49,7 +49,8 @@ func main() {
 
 		}
 		defer s.Close()
-		buf := make([]byte, 16384)
+		buf := make([]int16, 16384)
+		buf2 := make([]byte, 16384)
 		for {
 			n, err := opusParse.Read(buf)
 			if err == io.EOF {
@@ -57,7 +58,7 @@ func main() {
 			} else if err != nil {
 
 			}
-			pcm := buf[:n*2]
+			pcm := buf2[:n*2]
 			voiceConnect.OpusSend <- pcm
 
 			// send pcm to audio device here, or write to a .wav file
